@@ -7,7 +7,9 @@ import io
 
 print "Simple CSV to VCF"
 print "Make sure input.csv is in same directory."
-print "Must be formatted correctly!"
+print "The input.csv file must be formatted correctly!"
+print "It requires the columns 'Name', 'Cell', 'Work', and 'Home' to be present."
+print "Lastly, each contact needs at least a name. It can be one or two words."
 
 outfile = open("output.vcf", "w")
 
@@ -32,7 +34,8 @@ with open("input.csv", 'r') as csv_file:
         print name + ", " + cell + ", " + work + ", " + home
         namelist=name.split()
         firstname=namelist[0]
-        lastname=namelist[1]
+        if len(namelist) > 1:
+            lastname=namelist[1]
         outfile.writelines("N:"+lastname+";"+firstname+";;;" + "\n")
         outfile.writelines("FN:"+name + "\n")
         outfile.writelines("TEL;CELL:"+cell + "\n")
